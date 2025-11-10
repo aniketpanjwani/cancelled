@@ -1,11 +1,4 @@
-import Link from "next/link";
 import { Logo } from "@/components/logo";
-
-const navLinks = [
-  { label: "Evidence", href: "#evidence" },
-  { label: "Appeals", href: "#appeal" },
-  { label: "Merch", href: "#merch" },
-];
 
 type Appearance = "dark" | "light";
 
@@ -30,20 +23,13 @@ export function SiteNav({ appearance = "dark", className = "" }: SiteNavProps) {
       <div className="w-40 sm:w-48">
         <Logo variant={logoVariant} priority={isDark} className="w-full" />
       </div>
-      <nav className="flex items-center gap-6 text-[0.65rem] font-display uppercase tracking-[0.35em]">
-        {navLinks.map((link) => (
-          <Link key={link.label} href={link.href} className="hidden sm:inline hover:opacity-80">
-            {link.label}
-          </Link>
-        ))}
-        <button
-          type="button"
-          className={`rounded-full border px-4 py-2 text-[0.65rem] uppercase tracking-[0.35em] transition hover:border-accent-bright ${buttonClass}`.trim()}
-          aria-label="Open menu"
-        >
-          Menu
-        </button>
-     </nav>
+      <button
+        type="button"
+        className={`rounded-full border px-4 py-2 text-[0.65rem] font-display uppercase tracking-[0.35em] transition hover:border-accent-bright ${buttonClass}`.trim()}
+        aria-label="Open menu"
+      >
+        Menu
+      </button>
     </header>
   );
 }

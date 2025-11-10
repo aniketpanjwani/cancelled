@@ -24,8 +24,8 @@ export function Hero({ reason, canceledCount }: HeroProps) {
         className="pointer-events-none -z-20 object-cover"
       />
 
-      <div className="absolute inset-x-0 top-0 flex justify-center">
-        <SiteNav appearance="dark" className="max-w-[1440px]" />
+      <div className="absolute inset-x-0 top-0">
+        <SiteNav appearance="dark" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-[1440px] flex-col gap-12 px-6 py-24 sm:px-12 lg:grid lg:grid-cols-2 lg:items-center">

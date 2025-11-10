@@ -6,7 +6,7 @@ Purpose: capture the current implementation status, outstanding questions, and d
 
 | Area | Status | Notes |
 | --- | --- | --- |
-| Project scaffold | ✅ | Next.js 16 app bootstrapped via create-next-app (app router, Tailwind, ESLint, Turbopack). Bun lock generated. |
+| Project scaffold | ✅ | Next.js 15 app bootstrapped via create-next-app (app router, Tailwind, ESLint, Turbopack). Bun lock generated. |
 | Theming & fonts | ✅ | Global tokens file, Tailwind config, and Staatliches + Montserrat fonts wired through `next/font`. |
 | Hero UI | ✅ | Hero section, CTA cluster, and background assets implemented with responsive layout + data wiring. |
 | Reasons dataset | 🚧 | Placeholder JSON + helpers in place; awaiting final approved copy. |

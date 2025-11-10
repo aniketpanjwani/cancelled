@@ -11,7 +11,7 @@ For implementation details see `docs/implementation.md`, `docs/tasks.md`, and `d
 
 ## Tech Stack
 
-- Next.js 16 (App Router) + TypeScript
+- Next.js 15 (App Router) + TypeScript
 - Bun package manager (scripts and lockfile)
 - Tailwind CSS v4 (inline theme) + custom tokens
 - Framer Motion + motion-plus Typewriter component

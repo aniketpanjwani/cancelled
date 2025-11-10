@@ -6,8 +6,9 @@ Purpose: capture the current implementation status, outstanding questions, and d
 
 | Area | Status | Notes |
 | --- | --- | --- |
+| Project scaffold | ✅ | Next.js 16 app bootstrapped via create-next-app (app router, Tailwind, ESLint, Turbopack). Bun lock generated. |
 | Design assets | ✅ | Hero frame (`node 10:811`) + exported textures/stamp references documented. |
-| Tech stack | ✅ | Next.js 15 + Bun workflow + Tailwind tokens captured. |
+| Tech stack | ✅ | Next.js 15+/Bun workflow + Tailwind tokens captured. |
 | Reasons dataset | 🚧 | Placeholder JSON defined; awaiting final copy from stakeholders. |
 | Motion system | 🚧 | Framer Motion + motion-plus plan documented; needs implementation once repo exists. |
 | Analytics/stat | 🚧 | Pseudo-random cancellation count helper documented; awaiting real metric/API. |
@@ -28,6 +29,10 @@ Legend: ✅ completed, 🚧 in progress, ⚠️ blocked, ⛔ not started.
 
 ## Next actionable steps
 
-1. Spin up the Next.js 15 project scaffold (per `implementation.md`), wire Bun scripts.
-2. Implement `lib/reasons.ts` + `lib/canceled-count.ts`, then build the hero section with motion behaviors.
-3. Run the manual verification steps outlined in `docs/tasks.md` once each development milestone is complete.
+1. Configure global theming + tokens (Task 2 in `docs/tasks.md`).
+2. Implement the content helpers (`reasons.ts`, `canceled-count.ts`).
+3. Continue executing the remaining tasks and log verification results here.
+
+## Progress log
+
+- **Task 1 complete**: Scaffolded Next.js app with create-next-app (app router + Tailwind), removed `package-lock.json`, and reinstalled dependencies via `bun install`. Verified dev server boots (`bun dev`) on an alternate port (3002) with no errors.

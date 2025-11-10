@@ -1,9 +1,20 @@
 # Dependencies
-node_modules/
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+/coverage
 
 # Next.js build output
-.next/
-out/
+/.next/
+/out/
+/build
 
 # Env files
 .env*
@@ -13,8 +24,13 @@ out/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+.pnpm-debug.log*
 bun.lockb.backup
 
 # Misc
 .DS_Store
+*.pem
+next-env.d.ts
+
+# Tooling
+/.vercel

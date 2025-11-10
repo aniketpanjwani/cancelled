@@ -1,8 +1,8 @@
 const formatter = new Intl.NumberFormat("en-US");
 
 const BASE_COUNT = Number(process.env.CANCELED_COUNT_BASE ?? 984);
-const START_TIMESTAMP = process.env.CANCELED_COUNT_START ?? "2024-01-01T00:00:00Z";
-const INCREASE_PER_DAY = Number(process.env.CANCELED_COUNT_PER_DAY ?? 120);
+const START_TIMESTAMP = process.env.CANCELED_COUNT_START ?? "2025-11-09T00:00:00Z";
+const INCREASE_PER_DAY = Number(process.env.CANCELED_COUNT_PER_DAY ?? 21);
 
 export function getComputedCanceledCount(date: Date = new Date()) {
   const start = Date.parse(START_TIMESTAMP);

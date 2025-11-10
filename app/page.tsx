@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen">
-      <Hero reason={reason} canceledCount={canceledCount} />
+      <Hero reason={reason} canceledCount={canceledCount} showNav={false} />
     </main>
   );
 }

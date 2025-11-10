@@ -25,7 +25,7 @@ export function ReasonTypewriter({ reason }: ReasonTypewriterProps) {
   return (
     <div className="flex w-full flex-col items-center text-center text-white lg:items-start lg:text-left">
       {prefersReducedMotion ? (
-        <p className="mt-4 line-clamp-3 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]">
+        <p className="mt-4 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]">
           {reasonText}
         </p>
       ) : (
@@ -34,7 +34,7 @@ export function ReasonTypewriter({ reason }: ReasonTypewriterProps) {
           speed={0.08}
           cursorStyle={cursorStyle}
           textStyle={textStyle}
-          className="mt-4 line-clamp-3 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]"
+          className="mt-4 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]"
         >
           {reasonText}
         </Typewriter>

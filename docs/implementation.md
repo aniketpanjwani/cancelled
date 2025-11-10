@@ -221,6 +221,7 @@ export default function MarketingPage() {
 ## 5. Hero implementation blueprint
 
 - **Layout & background**: Use a two-column grid (`grid-cols-1 lg:grid-cols-2`) constrained to `max-w-[1440px]` and center it with `mx-auto`. Place the `imgRagebaitGameWebpageDesign` texture as a full-bleed `next/image` underneath via `position: absolute` so motion overlays don’t interfere with pointer events.
+- **Navigation**: Extract a reusable `<SiteNav />` that pulls the official logos (three variants available) and pins them to the top as an overlay. Use the white logo for dark overlays and the black version for light backgrounds.
 - **Stamped headline**: Left column stacks `"You’ve been"` text with the `imgCanceledStampWhiteText1` asset (slightly rotated ~–3°). Both use the `Staatliches` font and pure black fill to match the screenshot.
 - **Reason callout**: Right column displays `Reason: ${randomReason.title}` in `Staatliches`, uppercased, aligned center on mobile and left on desktop. Clamp to three lines via `line-clamp-3` and reserve ~2–3 lines worth of height.
 - **CTA cluster**: Primary button "Appeal Your Cancellation" (links to `https://tiktok.com`) plus the `#### people canceled` stat separated by the `imgLine1` divider graphic. Until we have a real metric, show a server-generated pseudo-count (e.g., a random `Intl.NumberFormat` string between 25 000 and 999 000). Buttons stay black with white text; add `aria-label` for the stat once real data arrives.

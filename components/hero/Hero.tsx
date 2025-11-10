@@ -1,11 +1,11 @@
 import Image from "next/image";
+import { SiteNav } from "@/components/nav";
 import { Reason } from "@/lib/reasons";
 import { CTACluster } from "./cta-cluster";
 import { GlitchStamp } from "./glitch-stamp";
 import { ReasonTypewriter } from "./reason-typewriter";
 
 const HERO_BG_SRC = "/assets/hero/ragebait-hero.png";
-const NAV_STRIP_SRC = "/assets/hero/nav-strip.png";
 
 interface HeroProps {
   reason: Reason;
@@ -24,15 +24,8 @@ export function Hero({ reason, canceledCount }: HeroProps) {
         className="pointer-events-none -z-20 object-cover"
       />
 
-      <div className="absolute left-1/2 top-0 w-[1440px] max-w-[95vw] -translate-x-1/2 opacity-90">
-        <Image
-          src={NAV_STRIP_SRC}
-          alt="Navigation strip"
-          width={1496}
-          height={112}
-          className="h-auto w-full"
-          priority
-        />
+      <div className="absolute inset-x-0 top-0 flex justify-center">
+        <SiteNav appearance="dark" className="max-w-[1440px]" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-[1440px] flex-col gap-12 px-6 py-24 sm:px-12 lg:grid lg:grid-cols-2 lg:items-center">

@@ -24,7 +24,16 @@ bun install
 bun dev
 ```
 
-The dev server defaults to port 3000 (Next.js may choose a different port if that is busy). Update `.env.local` with `MOTION_PLUS_TOKEN` for motion-plus components.
+The dev server defaults to port 3000 (Next.js may choose a different port if that is busy).
+
+### Environment variables
+
+| Variable | Description |
+| --- | --- |
+| `MOTION_PLUS_TOKEN` | Auth token for motion-plus components. |
+| `CANCELED_COUNT_BASE` *(optional)* | Starting value for the “people canceled” counter (default `984`). |
+| `CANCELED_COUNT_START` *(optional)* | ISO timestamp when the counter began (default `2024-01-01T00:00:00Z`). |
+| `CANCELED_COUNT_PER_DAY` *(optional)* | How many increments to add per day (default `120`). |
 
 ### Scripts
 
@@ -47,7 +56,7 @@ components/
   nav/              # SiteNav overlay component
 content/reasons.json
 lib/reasons.ts      # Weighted random helper
-lib/canceled-count.ts# Pseudo-random “people canceled” formatter
+lib/canceled-count.ts# Time-based “people canceled” formatter (formula)
 public/assets/      # Hero imagery + logo exports from Figma
 styles/tokens.css   # Brand palette + CSS variables
 docs/               # Implementation guide, tasks, tracking
@@ -61,4 +70,4 @@ docs/               # Implementation guide, tasks, tracking
 
 ## Deployment
 
-Deploy to Vercel or the target platform once the placeholder reasons and pseudo-stat helper are replaced with final data. Remember to set `MOTION_PLUS_TOKEN` in the deployment environment if motion-plus components are used.
+Deploy to Vercel or the target platform once the placeholder reasons are replaced with final copy. Remember to set `MOTION_PLUS_TOKEN` and (optionally) the `CANCELED_COUNT_*` variables if you want to tune the counter formula.

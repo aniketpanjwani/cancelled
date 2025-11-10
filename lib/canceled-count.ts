@@ -1,22 +1,19 @@
-import { randomInt } from "node:crypto";
-
-const MIN = 25_000;
-const MAX = 999_000;
 const formatter = new Intl.NumberFormat("en-US");
 
-export function getPseudoCanceledCount(seed?: number) {
-  const value = resolveValue(seed);
-  return formatter.format(value);
-}
+const BASE_COUNT = Number(process.env.CANCELED_COUNT_BASE ?? 984);
+const START_TIMESTAMP = process.env.CANCELED_COUNT_START ?? "2024-01-01T00:00:00Z";
+const INCREASE_PER_DAY = Number(process.env.CANCELED_COUNT_PER_DAY ?? 120);
 
-function resolveValue(seed?: number) {
-  if (typeof seed === "number") {
-    return clamp(Math.round(seed), MIN, MAX);
+export function getComputedCanceledCount(date: Date = new Date()) {
+  const start = Date.parse(START_TIMESTAMP);
+  if (Number.isNaN(start)) {
+    return formatter.format(BASE_COUNT);
   }
 
-  return randomInt(MIN, MAX + 1);
-}
+  const elapsedMs = Math.max(0, date.getTime() - start);
+  const increments = Math.floor(
+    (elapsedMs / (24 * 60 * 60 * 1000)) * Math.max(0, INCREASE_PER_DAY),
+  );
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
+  return formatter.format(BASE_COUNT + increments);
 }

@@ -17,8 +17,8 @@ Each task builds on the previous one and includes a manual verification step so 
 ## Task 3 – Implement data layer (`reasons.json`, helpers)
 - Create `content/reasons.json` using the placeholder entries from the doc.
 - Build `lib/reasons.ts` with `getRandomReason` (weighted random) and TypeScript types.
-- Add `lib/canceled-count.ts` to generate deterministic pseudo counts per request.
-**Manual verification**: Run `bun test` (or a targeted script) to execute a small unit test confirming `getRandomReason` returns entries and `getPseudoCanceledCount` respects bounds (25 000–999 000).
+- Add `lib/canceled-count.ts` to compute the time-based counter (base + daily growth) driven by `CANCELED_COUNT_*` env vars.
+**Manual verification**: Run a quick unit test (or log the value) to ensure `getComputedCanceledCount()` returns the expected number when you mock specific timestamps.
 
 ## Task 4 – Install and wire motion libraries
 - `bun add framer-motion motion-plus`.
@@ -33,10 +33,10 @@ Each task builds on the previous one and includes a manual verification step so 
 **Manual verification**: Load the page and confirm the hero visually matches the Figma screenshot (background texture, stamp placement, CTA grouping) without motion yet.
 
 ## Task 6 – Add content + data wiring
-- Pass `heroReason` and `pseudoCanceledCount` into the hero from `app/(marketing)/page.tsx`.
+- Pass `heroReason` and the computed cancellation count into the hero from `app/(marketing)/page.tsx`.
 - Display `Reason: ${heroReason.title}` with up to three lines (Tailwind `line-clamp-3`).
 - Connect the CTA button to `https://tiktok.com` and insert the divider asset between button + stat.
-**Manual verification**: Refresh multiple times; ensure the reason text changes, CTA link targets TikTok, and the pseudo count shows formatted numbers.
+**Manual verification**: Refresh multiple times; ensure the reason text changes, CTA link targets TikTok, and the computed count rises predictably over time (compare values a few minutes apart).
 
 ## Task 7 – Implement motion behaviors
 - Integrate motion-plus `Typewriter` in the reason component with defaults: `speed={0.04}`, cursor color `#DB4543`, no loop.
@@ -46,7 +46,7 @@ Each task builds on the previous one and includes a manual verification step so 
 
 ## Task 8 – Testing & accessibility pass
 - Add Vitest/Jest unit coverage for helper utilities.
-- Create a Playwright spec that loads `/`, checks the reason + pseudo count render, verifies CTA href, and asserts no console errors from motion providers.
+- Create a Playwright spec that loads `/`, checks the reason + computed count render, verifies CTA href, and asserts no console errors from motion providers.
 - Run `bun lint`, `bun typecheck`, and `bun test` before final sign-off.
 **Manual verification**: Share the Playwright report (or CLI output) demonstrating all assertions pass and no accessibility violations are reported by Axe.
 
@@ -54,4 +54,4 @@ Each task builds on the previous one and includes a manual verification step so 
 - Confirm `.env.local` includes `MOTION_PLUS_TOKEN` and is excluded from version control.
 - Review `docs/implementation.md`, `docs/tracking.md`, and this tasks file to ensure they reflect the final build.
 - Prepare deployment settings (Vercel project, environment variables) but do not deploy until stakeholders approve placeholders.
-**Manual verification**: Run through the hero experience end-to-end in incognito mode, verifying random reason assignment, motion, CTA link, and pseudo count all behave as documented.
+**Manual verification**: Run through the hero experience end-to-end in incognito mode, verifying random reason assignment, motion, CTA link, and the computed count all behave as documented.

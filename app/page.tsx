@@ -1,10 +1,10 @@
 import { Hero } from "@/components/hero";
-import { getPseudoCanceledCount } from "@/lib/canceled-count";
+import { getComputedCanceledCount } from "@/lib/canceled-count";
 import { getRandomReason } from "@/lib/reasons";
 
 export default function Home() {
   const reason = getRandomReason();
-  const canceledCount = getPseudoCanceledCount();
+  const canceledCount = getComputedCanceledCount();
 
   return (
     <main className="relative min-h-screen">

@@ -224,37 +224,28 @@ export default function MarketingPage() {
 - **Navigation**: Extract a reusable `<SiteNav />` that pulls the official logos (three variants available) and pins them to the top as an overlay. Use the white logo for dark overlays and the black version for light backgrounds.
 - **Stamped headline**: Left column stacks `"You’ve been"` text with the `imgCanceledStampWhiteText1` asset (slightly rotated ~–3°). Both use the `Staatliches` font and pure black fill to match the screenshot.
 - **Reason callout**: Right column displays `Reason: ${randomReason.title}` in `Staatliches`, uppercased, aligned center on mobile and left on desktop. Clamp to three lines via `line-clamp-3` and reserve ~2–3 lines worth of height.
-- **CTA cluster**: Primary button "Appeal Your Cancellation" (links to `https://tiktok.com`) plus the `#### people canceled` stat separated by the `imgLine1` divider graphic. Until we have a real metric, show a server-generated pseudo-count (e.g., a random `Intl.NumberFormat` string between 25 000 and 999 000). Buttons stay black with white text; add `aria-label` for the stat once real data arrives.
+- **CTA cluster**: Primary button "Appeal Your Cancellation" (links to `https://tiktok.com`) plus the `#### people canceled` stat separated by the `imgLine1` divider graphic. The stat uses a deterministic formula (base + daily growth) so it increases over time without touching external services. Buttons stay black with white text; add `aria-label` for the stat once real data arrives.
 - **Animations**: Hook in motion logic (see Section 7) for (a) typewriter reveal of the reason copy, (b) periodic glitch pulses on the stamp, and (c) subtle fade/slide on the CTA cluster.
 
 ---
 
-### Random cancellation count helper
+### Time-based cancellation count helper
 
-Until product provides a real metric, generate a pseudo-random count on the server so it remains deterministic per request (and matches the hydration payload):
+Use a simple formula so the number grows predictably:
 
 ```ts
 // lib/canceled-count.ts
-export function getPseudoCanceledCount(seed?: number) {
-  const min = 25_000;
-  const max = 999_000;
-  const value = seed ?? crypto.randomInt(min, max);
-  return new Intl.NumberFormat('en-US').format(value);
+const BASE = Number(process.env.CANCELED_COUNT_BASE ?? 984);
+const START = Date.parse(process.env.CANCELED_COUNT_START ?? '2024-01-01T00:00:00Z');
+const PER_DAY = Number(process.env.CANCELED_COUNT_PER_DAY ?? 120);
+
+export function getComputedCanceledCount(date = new Date()) {
+  const elapsedDays = Math.max(0, date.getTime() - START) / (24 * 60 * 60 * 1000);
+  return new Intl.NumberFormat('en-US').format(BASE + Math.floor(elapsedDays * PER_DAY));
 }
 ```
 
-```tsx
-import { getPseudoCanceledCount } from '@/lib/canceled-count';
-
-export function Hero() {
-  const canceledCount = getPseudoCanceledCount();
-  return (
-    <p aria-label={`${canceledCount} people canceled`}>{canceledCount} people canceled</p>
-  );
-}
-```
-
-Swap this helper once we have production analytics.
+This keeps the UX lively without needing database writes; tweak the env vars to speed up or slow down the growth curve.
 
 ---
 
@@ -361,6 +352,6 @@ Swap this helper once we have production analytics.
 ## 11. Outstanding items / clarifications needed
 
 1. **Final reason copy**: Swap the playful placeholder reasons for approved messaging before GA.
-2. **Hero stat data**: Replace the pseudo-random count helper with a real metric/API once the number exists.
+2. **Hero stat data**: Keep or adjust the time-based formula (supply real analytics later if the counter must reflect actual cancellations).
 
 Once these are answered, we can implement and ship the hero with confidence.

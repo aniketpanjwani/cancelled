@@ -30,6 +30,7 @@ bun.lockb.backup
 # Misc
 .DS_Store
 *.pem
+*.tsbuildinfo
 next-env.d.ts
 
 # Tooling

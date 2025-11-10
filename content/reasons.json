@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "lastUpdated": "2024-04-28",
+    "source": "Internal CX pulse"
+  },
+  "reasons": [
+    {
+      "id": "ring-light-overload",
+      "title": "Owning a ring light and too many opinions",
+      "description": "Your seventh hot take of the morning tripped every alarm in the algorithm.",
+      "ctaLabel": "Tone it down",
+      "ctaHref": "#tone",
+      "audience": ["Creators"],
+      "weight": 2
+    },
+    {
+      "id": "main-character-energy",
+      "title": "Main character energy set to 110%",
+      "description": "You tried to soliloquy through a group project stand-up.",
+      "ctaLabel": "Share the stage",
+      "ctaHref": "#stage",
+      "audience": ["Team leads", "Roommates"],
+      "weight": 1
+    },
+    {
+      "id": "inbox-ghosted",
+      "title": "Ghosted every email for 42 days",
+      "description": "We sent smoke signals, you replied with ellipses.",
+      "ctaLabel": "Open the inbox",
+      "ctaHref": "#emails",
+      "audience": ["Ops"],
+      "weight": 1
+    },
+    {
+      "id": "group-chat-judged",
+      "title": "Group chat voted you out",
+      "description": "Your meme-to-message ratio exceeded community guidelines.",
+      "ctaLabel": "Appeal to the mods",
+      "ctaHref": "#mods",
+      "audience": ["Friends"],
+      "weight": 1
+    }
+  ]
+}

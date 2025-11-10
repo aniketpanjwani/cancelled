@@ -1,0 +1,14 @@
+:root {
+  --color-bg: #000000;
+  --color-surface: #050505;
+  --color-accent: #c92b27;
+  --color-accent-bright: #db4543;
+  --color-text: #ffffff;
+  --color-text-invert: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

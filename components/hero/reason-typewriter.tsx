@@ -20,15 +20,13 @@ const textStyle: CSSProperties = {
 
 export function ReasonTypewriter({ reason }: ReasonTypewriterProps) {
   const prefersReducedMotion = useReducedMotion();
+  const reasonText = `Reason: ${reason.title}. ${reason.description}`;
 
   return (
     <div className="flex w-full flex-col items-center text-center text-white lg:items-start lg:text-left">
-      <p className="font-display text-2xl uppercase tracking-[0.2em] text-white/80">
-        Reason:
-      </p>
       {prefersReducedMotion ? (
         <p className="mt-4 line-clamp-3 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]">
-          {reason.title}
+          {reasonText}
         </p>
       ) : (
         <Typewriter
@@ -38,12 +36,9 @@ export function ReasonTypewriter({ reason }: ReasonTypewriterProps) {
           textStyle={textStyle}
           className="mt-4 line-clamp-3 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]"
         >
-          {reason.title}
+          {reasonText}
         </Typewriter>
       )}
-      <p className="mt-4 max-w-xl text-base text-white/70">
-        {reason.description}
-      </p>
     </div>
   );
 }

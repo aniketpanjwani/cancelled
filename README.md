@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Canceled Co Hero Experience
+
+This repo implements the hero section of the Canceled Co marketing site based on the [Figma design](https://www.figma.com/design/U1O4af0ddEaUdAXxrRsaT5/Canceled-Co-Site--Copy-?node-id=10-747&p=f). It focuses on the App Router landing view that features:
+
+- Official logo variants pulled directly from Figma via MCP.
+- A typewriter-driven cancellation reason sourced from a configurable JSON file.
+- A glitching “Canceled” stamp animation and CTA cluster wired to TikTok.
+- Bun-first tooling (install, dev, lint, typecheck) with Tailwind v4 tokens and `next/font` (Staatliches + Montserrat).
+
+For implementation details see `docs/implementation.md`, `docs/tasks.md`, and `docs/tracking.md`.
+
+## Tech Stack
+
+- Next.js 16 (App Router) + TypeScript
+- Bun package manager (scripts and lockfile)
+- Tailwind CSS v4 (inline theme) + custom tokens
+- Framer Motion + motion-plus Typewriter component
+- Local JSON content + lightweight helper libs (`lib/reasons.ts`, `lib/canceled-count.ts`)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server defaults to port 3000 (Next.js may choose a different port if that is busy). Update `.env.local` with `MOTION_PLUS_TOKEN` for motion-plus components.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `bun dev` | Run Next.js in development mode (App Router + Webpack for now). |
+| `bun run lint` | ESLint across the repo. |
+| `bun typecheck` | TypeScript `tsc --noEmit`. |
+| `bun run build` | Production build (Next.js). |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  layout.tsx        # Fonts, motion provider stub, global wrappers
+  page.tsx          # Server component that selects random reasons
+components/
+  hero/             # Hero layout, CTA cluster, glitch stamp, reason typewriter
+  logo.tsx          # Figma-exported logo variants
+  nav/              # SiteNav overlay component
+content/reasons.json
+lib/reasons.ts      # Weighted random helper
+lib/canceled-count.ts# Pseudo-random “people canceled” formatter
+public/assets/      # Hero imagery + logo exports from Figma
+styles/tokens.css   # Brand palette + CSS variables
+docs/               # Implementation guide, tasks, tracking
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verification Checklist
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `bun typecheck`
+- `bun run lint`
+- `bun dev` → ensure hero renders, typewriter/glitch animations run (disable at OS level to test reduced motion), CTA links to TikTok, random reason + pseudo count update on refresh.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to Vercel or the target platform once the placeholder reasons and pseudo-stat helper are replaced with final data. Remember to set `MOTION_PLUS_TOKEN` in the deployment environment if motion-plus components are used.

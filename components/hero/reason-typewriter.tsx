@@ -33,7 +33,7 @@ export function ReasonTypewriter({ reason }: ReasonTypewriterProps) {
       ) : (
         <Typewriter
           as="p"
-          speed={0.04}
+          speed={0.08}
           cursorStyle={cursorStyle}
           textStyle={textStyle}
           className="mt-4 line-clamp-3 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]"

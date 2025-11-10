@@ -303,7 +303,7 @@ Swap this helper once we have production analytics.
    ```
 
    - Feed `text` from `getRandomReason()`.
-   - Default config: `speed={0.04}` (~25 chars/sec), cursor color `#DB4543`, and `loop={false}` so each load types once. Adjust only if stakeholders request faster timing.
+   - Default config: `speed={0.08}` (~12 chars/sec) to create a slower dramatic reveal, cursor color `#DB4543`, and `loop={false}` so each load types once. Adjust only if stakeholders request timing tweaks.
 
 4. **Glitch pulses on the canceled stamp**
 

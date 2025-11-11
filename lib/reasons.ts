@@ -10,30 +10,13 @@ export function getRandomReason(seed?: number): Reason {
     throw new Error("Reasons dataset is empty");
   }
 
-  const totalWeight = REASONS.reduce(
-    (sum, reason) => sum + (reason.weight ?? 1),
-    0,
-  );
-
-  if (totalWeight <= 0) {
-    return REASONS[0];
-  }
-
-  const upperBound = totalWeight;
+  const upperBound = REASONS.length;
   const randomValue =
     typeof seed === "number"
       ? Math.max(0, Math.min(seed, upperBound - 1))
       : randomInt(upperBound);
 
-  let accumulator = 0;
-  for (const reason of REASONS) {
-    accumulator += reason.weight ?? 1;
-    if (randomValue < accumulator) {
-      return reason;
-    }
-  }
-
-  return REASONS[REASONS.length - 1];
+  return REASONS[randomValue];
 }
 
 export function getAllReasons() {

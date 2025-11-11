@@ -10,8 +10,7 @@
       "description": "Your seventh hot take of the morning tripped every alarm in the algorithm.",
       "ctaLabel": "Tone it down",
       "ctaHref": "#tone",
-      "audience": ["Creators"],
-      "weight": 2
+      "audience": ["Creators"]
     },
     {
       "id": "main-character-energy",
@@ -19,8 +18,7 @@
       "description": "You tried to soliloquy through a group project stand-up.",
       "ctaLabel": "Share the stage",
       "ctaHref": "#stage",
-      "audience": ["Team leads", "Roommates"],
-      "weight": 1
+      "audience": ["Team leads", "Roommates"]
     },
     {
       "id": "inbox-ghosted",
@@ -28,8 +26,7 @@
       "description": "We sent smoke signals, you replied with ellipses.",
       "ctaLabel": "Open the inbox",
       "ctaHref": "#emails",
-      "audience": ["Ops"],
-      "weight": 1
+      "audience": ["Ops"]
     },
     {
       "id": "group-chat-judged",
@@ -37,8 +34,7 @@
       "description": "Your meme-to-message ratio exceeded community guidelines.",
       "ctaLabel": "Appeal to the mods",
       "ctaHref": "#mods",
-      "audience": ["Friends"],
-      "weight": 1
+      "audience": ["Friends"]
     }
   ]
 }

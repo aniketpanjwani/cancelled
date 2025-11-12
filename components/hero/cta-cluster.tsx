@@ -61,22 +61,14 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
         <button
           type="button"
           onClick={handleCopy}
-          className="group inline-flex items-center gap-3 rounded-[12px] border border-white/40 px-6 py-4 font-display text-xl uppercase tracking-wide text-white transition hover:border-white hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
+          className="inline-flex items-center justify-center rounded-[12px] bg-white px-6 py-4 font-display text-xl uppercase tracking-wide text-black transition-colors hover:bg-[#DDDDDD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black active:bg-[#DDDDDD]"
           aria-label="Copy the Cancel Someone link"
         >
-          <span>
-            {copyState === "success"
-              ? "Copied"
-              : copyState === "error"
-                ? "Try Again"
-                : "Cancel Someone"}
-          </span>
-          <span
-            aria-hidden
-            className="text-lg transition group-hover:translate-x-1 group-active:translate-y-[1px]"
-          >
-            ↗
-          </span>
+          {copyState === "success"
+            ? "Copied"
+            : copyState === "error"
+              ? "Try Again"
+              : "Cancel Someone"}
         </button>
       </div>
 

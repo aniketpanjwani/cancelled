@@ -99,7 +99,7 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
       {toast.message ? (
         <div
           aria-live="polite"
-          className={`pointer-events-none fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-full border border-white/20 bg-[#C92B27] px-6 py-3 font-display text-base uppercase tracking-wide text-white shadow-card transition-all duration-300 ${
+          className={`pointer-events-none fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-full border border-white/20 bg-black px-6 py-3 font-display text-base uppercase tracking-wide text-white shadow-card transition-all duration-300 ${
             toast.visible ? "opacity-100 translate-y-0" : "translate-y-4 opacity-0"
           }`}
         >

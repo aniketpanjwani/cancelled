@@ -17,7 +17,13 @@ const bodyFont = Montserrat({
   display: "swap",
 });
 
-const siteUrl = "https://canceledco.com";
+const deploymentHost =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const siteUrl = deploymentHost.endsWith("/")
+  ? deploymentHost.slice(0, -1)
+  : deploymentHost;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -53,7 +53,7 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
           href={PRIMARY_CTA_HREF}
           target="_blank"
           rel="noreferrer"
-          className="rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-black/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
+          className="flex w-full items-center justify-center rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-[#500100] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px] sm:flex-1"
         >
           Appeal Your Cancellation
         </Link>
@@ -61,7 +61,7 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center justify-center rounded-[12px] bg-white px-6 py-4 font-display text-xl uppercase tracking-wide text-black transition-colors hover:bg-[#DDDDDD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black active:bg-[#DDDDDD]"
+          className="inline-flex w-full items-center justify-center rounded-[12px] bg-white px-6 py-4 font-display text-2xl uppercase tracking-wide text-black transition-colors hover:bg-[#DDDDDD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black active:bg-[#DDDDDD] sm:flex-1"
           aria-label="Copy the Cancel Someone link"
         >
           {copyState === "success"
@@ -72,9 +72,8 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
         </button>
       </div>
 
-      <div className="flex flex-col items-center text-center text-sm uppercase tracking-[0.2em] text-white/70">
-        <span className="font-display text-lg text-white">{canceledCount}</span>
-        <span>people canceled</span>
+      <div className="text-center font-display text-2xl uppercase tracking-wide text-white">
+        {canceledCount} people canceled
       </div>
 
       <div className="sr-only" aria-live="polite">

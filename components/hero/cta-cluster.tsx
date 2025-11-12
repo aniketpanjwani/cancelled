@@ -12,6 +12,10 @@ const SECONDARY_CTA_HREF = "https://canceled.canceledco.com";
 
 export function CTACluster({ canceledCount }: CTAClusterProps) {
   const [copyState, setCopyState] = useState<"idle" | "success" | "error">("idle");
+  const [toast, setToast] = useState<{ message: string; visible: boolean }>({
+    message: "",
+    visible: false,
+  });
 
   useEffect(() => {
     if (copyState === "idle") return;
@@ -22,6 +26,20 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
 
     return () => window.clearTimeout(timer);
   }, [copyState]);
+
+  useEffect(() => {
+    if (!toast.visible) return;
+    const timer = window.setTimeout(
+      () => setToast((prev) => ({ ...prev, visible: false })),
+      2400,
+    );
+
+    return () => window.clearTimeout(timer);
+  }, [toast.visible]);
+
+  const showToast = useCallback((message: string) => {
+    setToast({ message, visible: true });
+  }, []);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -40,11 +58,13 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
       }
 
       setCopyState("success");
+      showToast("Link copied to clipboard");
     } catch (error) {
       console.error("Failed to copy Cancel Someone link", error);
       setCopyState("error");
+      showToast("Unable to copy link. Try again.");
     }
-  }, []);
+  }, [showToast]);
 
   return (
     <div className="flex w-full flex-col items-center gap-8 text-white">
@@ -64,11 +84,7 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
           className="inline-flex w-full items-center justify-center rounded-[12px] bg-white px-6 py-4 font-display text-2xl uppercase tracking-wide text-black transition-colors hover:bg-[#DDDDDD] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black active:bg-[#DDDDDD] sm:flex-1"
           aria-label="Copy the Cancel Someone link"
         >
-          {copyState === "success"
-            ? "Copied"
-            : copyState === "error"
-              ? "Try Again"
-              : "Cancel Someone"}
+          Cancel Someone
         </button>
       </div>
 
@@ -77,12 +93,19 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
       </div>
 
       <div className="sr-only" aria-live="polite">
-        {copyState === "success"
-          ? "Link copied. Cancel someone URL is ready to share."
-          : copyState === "error"
-            ? "Unable to copy the Cancel Someone link."
-            : `${canceledCount} people canceled`}
+        {toast.visible ? toast.message : `${canceledCount} people canceled`}
       </div>
+
+      {toast.message ? (
+        <div
+          aria-live="polite"
+          className={`pointer-events-none fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-full border border-white/20 bg-[#C92B27] px-6 py-3 font-display text-base uppercase tracking-wide text-white shadow-card transition-all duration-300 ${
+            toast.visible ? "opacity-100 translate-y-0" : "translate-y-4 opacity-0"
+          }`}
+        >
+          {toast.message}
+        </div>
+      ) : null}
     </div>
   );
 }

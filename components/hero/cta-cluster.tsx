@@ -47,45 +47,42 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
   }, []);
 
   return (
-    <div className="flex w-full flex-col items-center gap-8 text-white sm:flex-row sm:justify-start">
-      <Link
-        href={PRIMARY_CTA_HREF}
-        target="_blank"
-        rel="noreferrer"
-        className="rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-black/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
-      >
-        Appeal Your Cancellation
-      </Link>
-
-      <button
-        type="button"
-        onClick={handleCopy}
-        className="group inline-flex items-center gap-3 rounded-[12px] border border-white/40 px-6 py-4 font-display text-xl uppercase tracking-wide text-white transition hover:border-white hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
-        aria-label="Copy the Cancel Someone link"
-      >
-        <span>
-          {copyState === "success"
-            ? "Copied"
-            : copyState === "error"
-              ? "Try Again"
-              : "Cancel Someone"}
-        </span>
-        <span
-          aria-hidden
-          className="text-lg transition group-hover:translate-x-1 group-active:translate-y-[1px]"
+    <div className="flex w-full flex-col items-center gap-8 text-white">
+      <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-start sm:gap-8">
+        <Link
+          href={PRIMARY_CTA_HREF}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-black/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
         >
-          ↗
-        </span>
-      </button>
+          Appeal Your Cancellation
+        </Link>
 
-      <div className="flex items-center gap-6 text-white">
-        <span className="hidden h-16 w-px bg-white/50 sm:block" aria-hidden />
-        <div className="flex flex-col items-center text-sm uppercase tracking-[0.2em] text-white/70">
-          <span className="font-display text-lg text-white">
-            {canceledCount}
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="group inline-flex items-center gap-3 rounded-[12px] border border-white/40 px-6 py-4 font-display text-xl uppercase tracking-wide text-white transition hover:border-white hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
+          aria-label="Copy the Cancel Someone link"
+        >
+          <span>
+            {copyState === "success"
+              ? "Copied"
+              : copyState === "error"
+                ? "Try Again"
+                : "Cancel Someone"}
           </span>
-          <span>people canceled</span>
-        </div>
+          <span
+            aria-hidden
+            className="text-lg transition group-hover:translate-x-1 group-active:translate-y-[1px]"
+          >
+            ↗
+          </span>
+        </button>
+      </div>
+
+      <div className="flex flex-col items-center text-center text-sm uppercase tracking-[0.2em] text-white/70">
+        <span className="font-display text-lg text-white">{canceledCount}</span>
+        <span>people canceled</span>
       </div>
 
       <div className="sr-only" aria-live="polite">

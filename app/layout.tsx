@@ -17,9 +17,36 @@ const bodyFont = Montserrat({
   display: "swap",
 });
 
+const siteUrl = "https://canceledco.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Canceled Co",
   description: "You’ve been canceled. Appeal or embrace it.",
+  openGraph: {
+    title: "Canceled Co",
+    description: "You’ve been canceled. Appeal or embrace it.",
+    url: siteUrl,
+    type: "website",
+    images: [
+      {
+        url: "/og/canceled-co-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Canceled Co hero preview with red background and cancel stamp.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Canceled Co",
+    description: "You’ve been canceled. Appeal or embrace it.",
+    images: ["/og/canceled-co-preview.png"],
+  },
+  icons: {
+    icon: ["/favicon.ico", "/icon.png"],
+    apple: ["/apple-icon.png"],
+  },
 };
 
 const motionPlusToken =

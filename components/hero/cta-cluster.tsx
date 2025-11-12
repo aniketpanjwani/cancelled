@@ -1,20 +1,82 @@
+"use client";
+
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 interface CTAClusterProps {
   canceledCount: string;
 }
 
+const PRIMARY_CTA_HREF = "https://canceledco.com";
+const SECONDARY_CTA_HREF = "https://canceled.canceledco.com";
+
 export function CTACluster({ canceledCount }: CTAClusterProps) {
+  const [copyState, setCopyState] = useState<"idle" | "success" | "error">("idle");
+
+  useEffect(() => {
+    if (copyState === "idle") return;
+    const timer = window.setTimeout(
+      () => setCopyState("idle"),
+      copyState === "success" ? 2500 : 2000,
+    );
+
+    return () => window.clearTimeout(timer);
+  }, [copyState]);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(SECONDARY_CTA_HREF);
+      } else if (typeof document !== "undefined") {
+        const textarea = document.createElement("textarea");
+        textarea.value = SECONDARY_CTA_HREF;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      setCopyState("success");
+    } catch (error) {
+      console.error("Failed to copy Cancel Someone link", error);
+      setCopyState("error");
+    }
+  }, []);
+
   return (
     <div className="flex w-full flex-col items-center gap-8 text-white sm:flex-row sm:justify-start">
       <Link
-        href="https://tiktok.com"
+        href={PRIMARY_CTA_HREF}
         target="_blank"
         rel="noreferrer"
-        className="rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-black/90"
+        className="rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-black/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
       >
         Appeal Your Cancellation
       </Link>
+
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="group inline-flex items-center gap-3 rounded-[12px] border border-white/40 px-6 py-4 font-display text-xl uppercase tracking-wide text-white transition hover:border-white hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px]"
+        aria-label="Copy the Cancel Someone link"
+      >
+        <span>
+          {copyState === "success"
+            ? "Copied"
+            : copyState === "error"
+              ? "Try Again"
+              : "Cancel Someone"}
+        </span>
+        <span
+          aria-hidden
+          className="text-lg transition group-hover:translate-x-1 group-active:translate-y-[1px]"
+        >
+          ↗
+        </span>
+      </button>
 
       <div className="flex items-center gap-6 text-white">
         <span className="hidden h-16 w-px bg-white/50 sm:block" aria-hidden />
@@ -27,7 +89,11 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
       </div>
 
       <div className="sr-only" aria-live="polite">
-        {canceledCount} people canceled
+        {copyState === "success"
+          ? "Link copied. Cancel someone URL is ready to share."
+          : copyState === "error"
+            ? "Unable to copy the Cancel Someone link."
+            : `${canceledCount} people canceled`}
       </div>
     </div>
   );

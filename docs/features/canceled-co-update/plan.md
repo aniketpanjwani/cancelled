@@ -21,6 +21,7 @@ Deliver the final set of marketing polish items before launch:
   - `app/icon.png` and `app/apple-icon.png` if needed for iOS.
 - Clear `.next` to ensure the new favicon ships.
 - Quick manual test: load the site locally and confirm the browser tab shows the new icon.
+*Status: ✅ Completed – generated the X favicon set (icon/apple-icon/public .ico) and verified locally.*
 
 ### 2. Link preview metadata
 - Move/extend metadata in `app/layout.tsx`:
@@ -28,11 +29,13 @@ Deliver the final set of marketing polish items before launch:
   - Ensure title/description reflect the hero copy (“You’ve been canceled…”).
 - If we need per-route metadata later, consider exporting a `generateMetadata`, but for now the static object is fine.
 - Validate via `npx vercel dev --inspect-og` or using Facebook/Twitter debugger after deploy.
+*Status: ✅ Completed – added site metadataBase + Open Graph/Twitter entries referencing the new preview image.*
 
 ### 3. CTA destination
 - In `components/hero/cta-cluster.tsx`, replace the TikTok placeholder href with `https://canceledco.com`.
 - Keep `target="_blank" rel="noreferrer"` so marketing can track via analytics.
 - Sanity check that the button styling remains unchanged.
+*Status: ✅ Completed – CTA now opens canceledco.com with updated focus styles.*
 
 ### 4. “Cancel Someone” copy interaction
 - Placement: per Figma `10:811`, the secondary button (“click to cancel someone”, node `80:16`) sits to the right of the main CTA inside the same row. We’ll reproduce that layout in `CTACluster`.
@@ -45,6 +48,7 @@ Deliver the final set of marketing polish items before launch:
 - Manual test cases:
   - Copy works in modern browsers (guards for `navigator.clipboard` support; fallback to `document.execCommand('copy')` or show instructions).
   - Success state disappears after timeout and resets when the user clicks again.
+*Status: ✅ Completed – Cancel Someone button copies `https://canceled.canceledco.com`, shows “Copied” feedback, and announces failures via SR-only text.*
 
 ## Verification
 1. `bun typecheck`, `bun run lint`, `bun run build`.

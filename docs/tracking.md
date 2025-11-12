@@ -41,3 +41,4 @@ Legend: ✅ completed, 🚧 in progress, ⚠️ blocked, ⛔ not started.
 - **Task 3 complete**: Created `content/reasons.json`, `lib/reasons.ts`, and `lib/canceled-count.ts` for random reason selection + time-based stats.
 - **Task 4 complete**: Installed `framer-motion` + `motion-plus`, stubbed motion provider hook for future token handling, and confirmed Bun typecheck/lint remain green.
 - **Tasks 5-7 complete**: Built the hero section with background assets, CTA cluster, and dynamic data. Wired motion-plus Typewriter + framer-motion glitch loop with reduced-motion fallbacks. Verified via `bun typecheck` and `bun run lint`.
+- **Launch polish update**: Replaced the favicon/OG preview with the new red “X” assets, pointed the hero CTA to `https://canceledco.com`, and added the “Cancel Someone” copy interaction (with success/error feedback). Confirmed `bun run lint`, `bun typecheck`, and `bun run build` stay green.

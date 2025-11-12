@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og/canceled-co-preview.png?v=1",
+        url: "/og/canceled-co-preview.png?v=2",
         width: 1200,
         height: 630,
         alt: "Canceled Co hero preview with red background and cancel stamp.",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Canceled Co",
     description: "You’ve been canceled. Appeal or embrace it.",
-    images: ["/og/canceled-co-preview.png?v=1"],
+    images: ["/og/canceled-co-preview.png?v=2"],
   },
   icons: {
     icon: ["/favicon.ico", "/icon.png"],

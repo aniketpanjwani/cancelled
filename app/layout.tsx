@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   title: "Canceled Co",
   description: "You’ve been canceled. Appeal or embrace it.",
   openGraph: {
-    title: "Canceled Co",
-    description: "You’ve been canceled. Appeal or embrace it.",
+    title: "\u200B",
+    description: "\u200B",
     url: siteUrl,
     type: "website",
     images: [
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Canceled Co",
-    description: "You’ve been canceled. Appeal or embrace it.",
+    title: "\u200B",
+    description: "\u200B",
     images: ["/og/canceled-co-preview.jpg?v=3"],
   },
   icons: {

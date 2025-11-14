@@ -8,7 +8,7 @@ interface CTAClusterProps {
 }
 
 const PRIMARY_CTA_HREF = "https://canceledco.com";
-const SECONDARY_CTA_HREF = "https://canceled.canceledco.com";
+const SECONDARY_CTA_HREF = "https://youdeserved.it";
 
 export function CTACluster({ canceledCount }: CTAClusterProps) {
   const [copyState, setCopyState] = useState<"idle" | "success" | "error">("idle");
@@ -73,9 +73,9 @@ export function CTACluster({ canceledCount }: CTAClusterProps) {
           href={PRIMARY_CTA_HREF}
           target="_blank"
           rel="noreferrer"
-          className="flex w-full items-center justify-center rounded-[12px] bg-black px-8 py-4 font-display text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-[#500100] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px] sm:flex-1"
+          className="flex w-full items-center justify-center rounded-[12px] bg-black px-8 py-4 font-display text-2xl md:text-xl lg:text-2xl uppercase tracking-wide text-white shadow-card transition hover:bg-[#500100] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-[1px] sm:flex-1 sm:whitespace-nowrap"
         >
-          Appeal Your Cancellation
+          Appeal your Cancelation
         </Link>
 
         <button

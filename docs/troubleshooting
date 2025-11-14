@@ -1,0 +1,59 @@
+Link preview image not showing on Discord — hypothesis and fix
+
+Summary
+- The Open Graph image doesn’t render in Discord because the built HTML points og:image at http://localhost:3000, which Discord’s crawler cannot access.
+
+Evidence
+- The project defines OG tags in app/layout.tsx using relative paths and a computed `metadataBase`:
+  - `openGraph.images: ["/og/canceled-co-preview.jpg?v=3"]`
+  - `metadataBase: new URL(siteUrl)` where `siteUrl` is derived from env vars.
+- If `NEXT_PUBLIC_SITE_URL` is not set at build time, `siteUrl` falls back to `http://localhost:3000` (since `VERCEL_URL` typically isn’t available during the build step). Next.js resolves relative OG image paths against that base and emits absolute tags pointing to localhost.
+- Built artifact sample shows localhost embedded in meta tags (example from .next):
+  - `<meta property="og:url" content="http://localhost:3000">`
+  - `<meta property="og:image" content="http://localhost:3000/og/canceled-co-preview.jpg?...">`
+  - Discord cannot fetch localhost, so no image appears.
+
+Notes on the image
+- The file exists at public/og/canceled-co-preview.jpg and is 1200×630, which is fine for OG.
+- The absolute FS path (/Users/.../public/og) is irrelevant to crawlers; only public HTTP(S) URLs matter.
+
+Fix options
+1) Set an explicit public base URL at build time
+   - In your hosting environment (e.g., Vercel → Project Settings → Environment Variables), set:
+     - `NEXT_PUBLIC_SITE_URL=https://<your-domain>` (include https and no trailing slash)
+   - Redeploy so `metadataBase` resolves correctly and the emitted `<meta property="og:image" ...>` points to a public HTTPS URL.
+
+2) Emit absolute URLs for images (skip metadataBase for this field)
+   - Change `openGraph.images` and `twitter.images` to absolute URLs, e.g. `https://<your-domain>/og/canceled-co-preview.jpg?v=4`.
+   - This avoids depending on build-time env for these tags.
+
+3) Compute metadata per request (advanced)
+   - Use `generateMetadata()` and derive the host from request headers (`x-forwarded-proto`/`x-forwarded-host`) so previews always render with the correct origin, even in previews.
+
+After applying a fix
+- Bust Discord’s cache by changing the query string (e.g., `?v=4`) or using an embed debugger.
+- Verify the page HTML contains `<meta property="og:image" content="https://.../og/canceled-co-preview.jpg?...">` and returns HTTP 200 for that URL.
+
+Why Discord shows nothing
+- Discord requires a publicly reachable, absolute `og:image` URL. If it points to localhost (or any unreachable origin), Discord skips the image.
+
+Live site check (cancelled-lilac.vercel.app)
+- After setting `NEXT_PUBLIC_SITE_URL` and redeploying, the live HTML currently contains malformed OG URLs:
+  - `og:url` → `https://https//cancelled-lilac.vercel.app`
+  - `og:image` → `https://https/cancelled-lilac.vercel.app/og/canceled-co-preview.jpg?v=3`
+- This indicates the environment variable was set to `https//cancelled-lilac.vercel.app` (missing the colon after `https`). Next.js then prepended `https://` to what it treated as a relative URL, resulting in `https://https//...` and an invalid host.
+- The actual image is publicly reachable at a correct URL and returns 200:
+  - `https://cancelled-lilac.vercel.app/og/canceled-co-preview.jpg?v=3`
+
+Action required
+- Correct the environment variable to include the full scheme: `NEXT_PUBLIC_SITE_URL=https://cancelled-lilac.vercel.app` (note the `https://` with a colon, and no trailing slash preferred).
+- Redeploy, then verify page HTML shows:
+  - `<meta property="og:url" content="https://cancelled-lilac.vercel.app">`
+  - `<meta property="og:image" content="https://cancelled-lilac.vercel.app/og/canceled-co-preview.jpg?v=4">` (bump the query to bust caches)
+- Re-test in Discord (or use an Open Graph debugger) after cache busting.
+
+Optional hardening
+- Add a small sanitizer around `NEXT_PUBLIC_SITE_URL` to guard against missing schemes or stray slashes. Example logic:
+  - If value lacks `://`, prepend `https://`.
+  - If value starts with `https//`, fix to `https://`.
+  - Strip trailing slash for consistency.

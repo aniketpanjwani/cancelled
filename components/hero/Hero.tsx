@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Reason } from "@/lib/reasons";
 import { CTACluster } from "./cta-cluster";
 import { GlitchStamp } from "./glitch-stamp";
 import { ReasonTypewriter } from "./reason-typewriter";
@@ -7,12 +6,11 @@ import { ReasonTypewriter } from "./reason-typewriter";
 const HERO_BG_SRC = "/assets/hero/ragebait-hero.png";
 
 interface HeroProps {
-  reason: Reason;
   canceledCount: string;
   showNav?: boolean;
 }
 
-export function Hero({ reason, canceledCount }: HeroProps) {
+export function Hero({ canceledCount }: HeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-accent text-white">
       <Image
@@ -37,7 +35,7 @@ export function Hero({ reason, canceledCount }: HeroProps) {
         </div>
 
         <div className="flex flex-col items-center gap-10">
-          <ReasonTypewriter reason={reason} />
+          <ReasonTypewriter />
           <CTACluster canceledCount={canceledCount} />
         </div>
       </div>

@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { Typewriter } from "motion-plus/react";
 import { useReducedMotion } from "framer-motion";
-import reasonsData from "@/content/reasons.json";
 import type { Reason } from "@/lib/reasons";
 
-const REASONS: Reason[] = reasonsData.reasons;
+interface ReasonTypewriterProps {
+  initialReason: Reason | null;
+}
 
 const cursorStyle: CSSProperties = {
   background: "#db4543",
@@ -17,30 +18,17 @@ const textStyle: CSSProperties = {
   fontFamily: 'var(--font-display), "Staatliches", sans-serif',
 };
 
-export function ReasonTypewriter() {
+export function ReasonTypewriter({ initialReason }: ReasonTypewriterProps) {
   const prefersReducedMotion = useReducedMotion();
-  const [reason, setReason] = useState<Reason | null>(null);
 
-  useEffect(() => {
-    if (REASONS.length === 0) {
-      return;
-    }
-
-    const index = Math.floor(Math.random() * REASONS.length);
-    setReason(REASONS[index]);
-  }, []);
-
-  if (REASONS.length === 0) {
+  if (!initialReason) {
     return null;
   }
 
-  const selectedReason = reason ?? REASONS[0];
-  const title = selectedReason.title?.trim() ?? "";
-  const description = selectedReason.description?.trim();
-  const reasonText = description
-    ? `Reason: ${title} ${description}`
-    : `Reason: ${title}`;
-  const shouldAnimate = !prefersReducedMotion && Boolean(reason);
+  const title = initialReason.title?.trim() ?? "";
+  const description = initialReason.description?.trim();
+  const reasonText = description ? `Reason: ${title} ${description}` : `Reason: ${title}`;
+  const shouldAnimate = !prefersReducedMotion;
 
   const textClassName =
     "mt-4 font-display text-4xl uppercase leading-tight text-white sm:text-5xl lg:text-[56px]";

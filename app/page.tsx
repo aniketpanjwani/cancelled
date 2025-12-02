@@ -4,7 +4,6 @@ import { getComputedCanceledCount } from "@/lib/canceled-count";
 import { getAllReasons, type Reason } from "@/lib/reasons";
 
 const REASON_COOKIE_NAME = "cancelled_reason_index";
-const REASON_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 export const dynamic = "force-dynamic";
 
@@ -23,11 +22,6 @@ async function resolveInitialReason(): Promise<Reason | null> {
 
   if (!hasValidStoredIndex) {
     reasonIndex = Math.floor(Math.random() * reasons.length);
-    cookieStore.set(REASON_COOKIE_NAME, String(reasonIndex), {
-      maxAge: REASON_COOKIE_MAX_AGE,
-      path: "/",
-      sameSite: "lax",
-    });
   }
 
   return reasons[reasonIndex];
